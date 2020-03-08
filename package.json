@@ -1,0 +1,15 @@
+{
+  "name": "cloudless-shelly-ota-update",
+  "version": "1.0.0",
+  "description": "Update shelly devices in your LAN without cloud access / internet access",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "multicast-dns": "^7.2.1",
+    "node-fetch": "^2.6.0"
+  }
+}
