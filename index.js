@@ -24,10 +24,10 @@ function httpd() {
   var serveStatic = require('serve-static');
 
   var serve = serveStatic('./fw', {
-    index: false, 
+    index: false,
     setHeaders: (res, path) => {
       res.setHeader('Content-Disposition', contentDisposition(path));
-      console.log("Downloading firmware ...");
+      console.log('Downloading firmware ...');
     }
   });
 
@@ -46,10 +46,18 @@ function httpd() {
     console.error('No firmware information available.');
   } else {
     for (const [devicetype, fw] of Object.entries(firmwares.data)) {
-      let res = await fetch(fw.url);
-      let fn = path.join(__dirname, './fw', ufn(fw.url));
-      res.body.pipe(fs.createWriteStream(fn));
-      console.info(`Downloaded ${fn} (${fw.version})`);
+      fw.filename = `${fw.version.split('/')[0]}_${ufn(fw.url)}`;
+      let fn = path.join(
+        __dirname,
+        './fw',
+        fw.filename
+      );
+
+      if (!fs.existsSync(fn)) {
+        let res = await fetch(fw.url);
+        res.body.pipe(fs.createWriteStream(fn));
+        console.info(`Downloaded ${fn} (${fw.version})`);
+      }
     }
   }
 
@@ -81,9 +89,9 @@ function httpd() {
           needs_upd:
             fwv(deviceinfo.fw) < fwv(firmwares.data[deviceinfo.type].version),
           status: otainfo.status,
-          update_url: `${devicebaseurl}/ota?url=http://${localip}:3000/${ufn(
-            firmwares.data[deviceinfo.type].url
-          )}`
+          update_url: `${devicebaseurl}/ota?url=http://${localip}:3000/${
+            firmwares.data[deviceinfo.type].filename
+          }`
         };
         console.clear();
         if (!shellys[v.name] && shelly.needs_upd) {
