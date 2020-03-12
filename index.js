@@ -24,9 +24,11 @@ function httpd() {
   var serveStatic = require('serve-static');
 
   var serve = serveStatic('./fw', {
-    index: false,
-    setHeaders: (res, path) =>
-      res.setHeader('Content-Disposition', contentDisposition(path))
+    index: false, 
+    setHeaders: (res, path) => {
+      res.setHeader('Content-Disposition', contentDisposition(path));
+      console.log("Downloading firmware ...");
+    }
   });
 
   var server = http.createServer((req, res) =>
@@ -67,8 +69,9 @@ function httpd() {
       f.map(async v => {
         // get info from device
         // see https://shelly-api-docs.shelly.cloud/#shelly
-        let deviceinfo = await (await fetch(`http://${v.data}/shelly`)).json();
-
+        let devicebaseurl = `http://${v.data}`;
+        let deviceinfo = await (await fetch(`${devicebaseurl}/shelly`)).json();
+        let otainfo = await (await fetch(`${devicebaseurl}/ota`)).json();
         let shelly = {
           ts: new Date(),
           ip: v.data,
@@ -77,16 +80,19 @@ function httpd() {
           fw_latest: firmwares.data[deviceinfo.type].version,
           needs_upd:
             fwv(deviceinfo.fw) < fwv(firmwares.data[deviceinfo.type].version),
-          state: 'new', // updating, updated
-          update_url: `http://${v.data}/ota?url=http://${localip}:3000/${ufn(
+          status: otainfo.status,
+          update_url: `${devicebaseurl}/ota?url=http://${localip}:3000/${ufn(
             firmwares.data[deviceinfo.type].url
           )}`
         };
-
-        shellys[v.name] = shelly;
         console.clear();
+        if (!shellys[v.name] && shelly.needs_upd) {
+          shelly.status = 'updating';
+          fetch(shelly.update_url);
+          console.info(`Will update new device ... ${v.name}`);
+        }
+        shellys[v.name] = shelly;
         console.table(shellys);
-        for (s of shellys.values()) console.log(s.update_url);
       })
     );
   });
