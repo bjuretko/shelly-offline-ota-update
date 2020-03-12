@@ -65,6 +65,8 @@ function httpd() {
     );
     Promise.all(
       f.map(async v => {
+        // get info from device
+        // see https://shelly-api-docs.shelly.cloud/#shelly
         let deviceinfo = await (await fetch(`http://${v.data}/shelly`)).json();
 
         let shelly = {
