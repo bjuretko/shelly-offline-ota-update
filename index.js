@@ -1,5 +1,7 @@
 'use strict';
 
+const listeningPort = parseInt(process.env.PORT,10) || 43563;
+
 var os = require('os');
 const fs = require('fs');
 var url = require('url');
@@ -34,8 +36,8 @@ function httpd() {
   var server = http.createServer((req, res) =>
     serve(req, res, finalhandler(req, res))
   );
-  server.listen(3000, '0.0.0.0');
-  console.info('Listening on http://0.0.0.0:3000/');
+  server.listen(listeningPort, '0.0.0.0');
+  console.info(`Listening on http://0.0.0.0:${listeningPort}/`);
 }
 
 (async () => {
@@ -89,7 +91,7 @@ function httpd() {
           needs_upd:
             fwv(deviceinfo.fw) < fwv(firmwares.data[deviceinfo.type].version),
           status: otainfo.status,
-          update_url: `${devicebaseurl}/ota?url=http://${localip}:3000/${
+          update_url: `${devicebaseurl}/ota?url=http://${localip}:${listeningPort}/${
             firmwares.data[deviceinfo.type].filename
           }`
         };
