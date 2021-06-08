@@ -1,12 +1,12 @@
 {
-  "name": "cloudless-shelly-ota-update",
+  "name": "shelly-offline-ota-update",
   "version": "1.0.0",
   "description": "Update shelly devices in your LAN without cloud access / internet access",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Benedict Juretko",
   "license": "MIT",
   "dependencies": {
     "content-disposition": "^0.5.3",
