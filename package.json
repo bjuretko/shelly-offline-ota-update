@@ -8,7 +8,7 @@
     "start": "node server.js"
   },
   "bin": {
-    "shelly-offline-ota-update": "server.js",
+    "shelly-offline-ota-update": "server.js"
   },
   "author": "Benedict Juretko",
   "license": "MIT",
