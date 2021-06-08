@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "bin": {
+    "shelly-offline-ota-update": "server.js",
+  },
   "author": "Benedict Juretko",
   "license": "MIT",
   "dependencies": {
