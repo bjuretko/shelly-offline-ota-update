@@ -1,11 +1,11 @@
 'use strict';
 
-const listeningPort = parseInt(process.env.PORT,10) || 43563;
+const listeningPort = parseInt(process.env.PORT, 10) || 43563;
 
-var os = require('os');
+const os = require('os');
 const fs = require('fs');
-var url = require('url');
-var path = require('path');
+const url = require('url');
+const path = require('path');
 const mdns = require('multicast-dns')();
 const fetch = require('node-fetch');
 
@@ -15,9 +15,9 @@ async function ip(options) {
 }
 
 // parse data of firmware from version string
-const fwv = s => parseInt(s.substring(0, 15).replace('-', ''), 10);
+const fwv = (s) => parseInt(s.substring(0, 15).replace('-', ''), 10);
 // filename of a url
-const ufn = s => path.basename(url.parse(s).path);
+const ufn = (s) => path.basename(url.parse(s).path);
 
 function httpd() {
   var contentDisposition = require('content-disposition');
@@ -30,7 +30,7 @@ function httpd() {
     setHeaders: (res, path) => {
       res.setHeader('Content-Disposition', contentDisposition(path));
       console.log('Downloading firmware ...');
-    }
+    },
   });
 
   var server = http.createServer((req, res) =>
@@ -49,11 +49,7 @@ function httpd() {
   } else {
     for (const [devicetype, fw] of Object.entries(firmwares.data)) {
       fw.filename = `${fw.version.split('/')[0]}_${ufn(fw.url)}`;
-      let fn = path.join(
-        __dirname,
-        './fw',
-        fw.filename
-      );
+      let fn = path.join(__dirname, './fw', fw.filename);
 
       if (!fs.existsSync(fn)) {
         let res = await fetch(fw.url);
@@ -71,12 +67,12 @@ function httpd() {
   const shellys = {};
 
   console.info('Waiting for shellys to appear ...');
-  mdns.on('response', function(response) {
+  mdns.on('response', function (response) {
     let f = response.answers.filter(
-      v => v.name.includes('shelly') && v.type === 'A'
+      (v) => v.name.includes('shelly') && v.type === 'A'
     );
     Promise.all(
-      f.map(async v => {
+      f.map(async (v) => {
         // get info from device
         // see https://shelly-api-docs.shelly.cloud/#shelly
         let devicebaseurl = `http://${v.data}`;
@@ -93,7 +89,7 @@ function httpd() {
           status: otainfo.status,
           update_url: `${devicebaseurl}/ota?url=http://${localip}:${listeningPort}/${
             firmwares.data[deviceinfo.type].filename
-          }`
+          }`,
         };
         console.clear();
         if (!shellys[v.name] && shelly.needs_upd) {
