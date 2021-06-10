@@ -13,7 +13,7 @@
   "dependencies": {
     "content-disposition": "^0.5.3",
     "finalhandler": "^1.1.2",
-    "multicast-dns": "^7.2.1",
+    "multicast-dns": "^7.2.3",
     "node-fetch": "^2.6.1",
     "serve-static": "^1.14.1"
   }
