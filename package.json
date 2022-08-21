@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "shelly-offline-ota-update": "node server.js"
+    "shelly-offline-ota-update": "npm install -g npm; npm i; node server.js"
   },
   "author": "Benedict Juretko",
   "license": "MIT",
