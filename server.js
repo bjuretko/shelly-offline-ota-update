@@ -61,7 +61,7 @@ function httpd() {
     }
   }
 
-  const localip = await ip();
+  const localip = process.argv.length > 2 ? process.argv[2] : await ip();
 
   console.log(`Hostname: ${os.hostname()}, IP4: ${localip}`);
   httpd();
