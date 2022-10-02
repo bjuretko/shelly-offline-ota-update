@@ -41,3 +41,5 @@ set individually for each device but is used for all devices.
 ```
 SHELLY_AUTH="admin:thesecurepassword" node server.js 192.168.0.4
 ```
+
+> The credentials will be printed on the console and used for a unsecured network connection (http) to the devices.
