@@ -43,3 +43,11 @@ SHELLY_AUTH="admin:thesecurepassword" node server.js 192.168.0.4
 ```
 
 > The credentials will be printed on the console and used for a unsecured network connection (http) to the devices.
+
+## Run with docker
+
+You need network host due to mDNS, which is available on linux systems only.
+
+```
+docker run -it --rm -v "$(pwd):/app" --network host node:12-alpine node /app/server.js
+```
