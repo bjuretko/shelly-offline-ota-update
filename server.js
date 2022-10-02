@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict';
 
 const listeningPort = parseInt(process.env.PORT, 10) || 43563;
@@ -73,7 +74,7 @@ function httpd() {
   const localip = process.argv.length > 2 ? process.argv[2] : await ip();
 
   console.log(`Hostname: ${os.hostname()}, IP4: ${localip}`);
-  console.log("All IPs resolved: %j", await allips());
+  console.log('All IPs resolved: %j', await allips());
   httpd();
 
   const shellys = {};

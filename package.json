@@ -6,6 +6,9 @@
   "repository": {
     "url": "https://github.com/bjuretko/shelly-offline-ota-update.git"
   },
+  "bin": {
+    "shelly-offline-ota-update": "index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",

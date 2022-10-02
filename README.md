@@ -8,15 +8,23 @@ Update [shelly](https://shelly.cloud/) devices from a local network without inte
 
 To automatically update all devices in the network, simply start the project with:
 
+via npx
+
 ```
-npm install
-npm start
+npx github:bjuretko/shelly-offline-ota-update
 ```
 
 or via docker:
 
 ```
-docker run -it --rm -v "$(pwd):/app" --network host -w /app node:18-alpine npm run shelly-offline-ota-update
+docker run -it --rm -v "$(pwd):/app" --network host -w /app node:12-alpine npm run shelly-offline-ota-update
+```
+
+or from source:
+
+```
+npm install
+npm start
 ```
 
 Note that it may take some time as the application is waiting for shelly device announcements.
