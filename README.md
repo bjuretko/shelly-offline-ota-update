@@ -1,10 +1,19 @@
 # Shelly Offline Updater
 
-![Shelly IoT Device](https://shop.shelly.cloud/image/cache/catalog/shelly_plug_s/s_plug_s_x1-300x300.jpg)
-
 Update [shelly](https://shelly.cloud/) devices from a local network without internet access.
 
-**PRIVATE PROJECT, RUN AT OWN RISK.**
+A typical use case is to run this script on local instance with internet access and access to the shelly devices,
+which are not connected to the internet (e.g. blocked by firewall).
+You do not need to have internet access and access to the shellys at the same time, as this script will
+download all current firmwares from <https://api.shelly.cloud/files/firmware> to the local folder `./fw`.
+Afterwards you can switch to the shelly device network if needed to perform the update. 
+This script will then wait for [shelly device announcements](https://shelly-api-docs.shelly.cloud/gen1/#mdns-discovery)
+and update the device if a newer firmware is available.
+
+- Shelly Gen 1 Changelog <https://shelly-api-docs.shelly.cloud/gen1/#changelog>
+- Shelly Gen 2 Changelog <https://shelly-api-docs.shelly.cloud/gen2/changelog>
+
+**PRIVATE PROJECT, RUN AT OWN RISK. INTERRUPTION OF FIRMWARE UPGRADES MAY LEAD TO BRICKED DEVICES.**
 
 To automatically update all devices in the network, simply start the project with:
 
