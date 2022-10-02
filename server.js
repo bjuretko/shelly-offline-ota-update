@@ -8,9 +8,11 @@ const url = require('url');
 const path = require('path');
 const mdns = require('multicast-dns')();
 const fetch = require('node-fetch');
+const dns = require('dns');
 
-async function ip(options) {
-  const { lookup } = require('dns').promises;
+async function ip() {
+  options = { family: 4, verbatim: false, hints: dns.ADDRCONFIG  }
+  const { lookup } = dns.promises;
   return (await lookup(os.hostname(), options)).address;
 }
 
@@ -59,7 +61,7 @@ function httpd() {
     }
   }
 
-  const localip = await ip({ family: 4, verbatim: false });
+  const localip = await ip();
 
   console.log(`Hostname: ${os.hostname()}, IP4: ${localip}`);
   httpd();
