@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Update shelly devices in your LAN without cloud access / internet access",
   "main": "server.js",
+  "repository": {
+    "url": "https://github.com/bjuretko/shelly-offline-ota-update.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
