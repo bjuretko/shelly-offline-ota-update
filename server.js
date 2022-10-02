@@ -27,6 +27,9 @@ const fwv = (s) => parseInt(s.substring(0, 15).replace('-', ''), 10);
 // filename of a url
 const ufn = (s) => path.basename(url.parse(s).path);
 
+// create basic auth part for update url if SHELLY_AUTH env var is set
+const shellyauth = process.env.SHELLY_AUTH ? process.env.SHELLY_AUTH + '@' : '';
+
 function httpd() {
   var contentDisposition = require('content-disposition');
   var finalhandler = require('finalhandler');
@@ -84,7 +87,7 @@ function httpd() {
       f.map(async (v) => {
         // get info from device
         // see https://shelly-api-docs.shelly.cloud/#shelly
-        let devicebaseurl = `http://${v.data}`;
+        let devicebaseurl = `http://${shellyauth}${v.data}`;
         let deviceinfo = await (await fetch(`${devicebaseurl}/shelly`)).json();
         let otainfo = await (await fetch(`${devicebaseurl}/ota`)).json();
         let shelly = {

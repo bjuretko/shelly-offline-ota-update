@@ -32,3 +32,12 @@ You can provide the IP via the first commandline argument in this case:
 ```
 node server.js 192.168.0.4
 ```
+
+## Using the script with login protected shelly
+
+Shelly restricted by login can be updated by providing the login credentials via environment variable `SHELLY_AUTH` as a `username:password` string. Note that the credentials cannot be
+set individually for each device but is used for all devices.
+
+```
+SHELLY_AUTH="admin:thesecurepassword" node server.js 192.168.0.4
+```
