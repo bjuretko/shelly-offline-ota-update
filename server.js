@@ -10,10 +10,16 @@ const mdns = require('multicast-dns')();
 const fetch = require('node-fetch');
 const dns = require('dns');
 
+const dnsoptions = { family: 4, verbatim: false, hints: dns.ADDRCONFIG };
+const { lookup } = dns.promises;
+
 async function ip() {
-  options = { family: 4, verbatim: false, hints: dns.ADDRCONFIG  }
-  const { lookup } = dns.promises;
-  return (await lookup(os.hostname(), options)).address;
+  return (await lookup(os.hostname(), dnsoptions)).address;
+}
+
+async function allips() {
+  const options = { ...dnsoptions, all: true };
+  return lookup(os.hostname(), options);
 }
 
 // parse data of firmware from version string
@@ -64,6 +70,7 @@ function httpd() {
   const localip = process.argv.length > 2 ? process.argv[2] : await ip();
 
   console.log(`Hostname: ${os.hostname()}, IP4: ${localip}`);
+  console.log("All IPs resolved: %j", await allips());
   httpd();
 
   const shellys = {};
