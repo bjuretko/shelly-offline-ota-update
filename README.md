@@ -11,6 +11,7 @@ This script will then wait for [shelly device announcements](https://shelly-api-
 and update the device if a newer firmware is available.
 
 - Shelly Gen 1 Changelog <https://shelly-api-docs.shelly.cloud/gen1/#changelog>
+- Shelly Gen 2 Changelog <https://shelly-api-docs.shelly.cloud/gen2/changelog>
 
 **PRIVATE PROJECT, RUN AT OWN RISK. INTERRUPTION OF FIRMWARE UPGRADES MAY LEAD TO BRICKED DEVICES.**
 

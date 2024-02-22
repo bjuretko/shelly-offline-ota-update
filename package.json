@@ -1,6 +1,6 @@
 {
   "name": "shelly-offline-ota-update",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Update shelly devices in your LAN without cloud access / internet access",
   "main": "server.js",
   "repository": {
@@ -20,7 +20,10 @@
     "content-disposition": "^0.5.4",
     "finalhandler": "^1.2.0",
     "multicast-dns": "^7.2.5",
-    "node-fetch": "^2.6.7",
+    "node-fetch": "^2.7.0",
     "serve-static": "^1.15.0"
+  },
+  "engines": {
+    "node": ">=12"
   }
 }
